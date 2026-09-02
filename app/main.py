@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 from app.api.v1.health import router as health_router
 from app.core.config import settings
-
+from app.router.organization import router as organization_router
 
 app = FastAPI(
     title=settings.app_name,
@@ -10,6 +10,5 @@ app = FastAPI(
 )
 
 app.include_router(
-    health_router,
-    prefix="/api/v1",
+    organization_router,
 )

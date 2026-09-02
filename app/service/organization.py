@@ -1,6 +1,10 @@
 from sqlalchemy.orm import Session
 
 from app.model.organization import Organization
+from app.repository.organization import (
+    create_organization as create_organization_repository,
+    get_organizations as get_organizations_repository,
+)
 from app.schema.organization import OrganizationCreate
 
 
@@ -12,8 +16,11 @@ def create_organization(
         name=organization_data.name,
     )
 
-    db.add(organization)
-    db.commit()
-    db.refresh(organization)
+    return create_organization_repository(
+        db,
+        organization,
+    )
 
-    return organization
+
+def get_organizations(db: Session) -> list[Organization]:
+    return get_organizations_repository(db)
