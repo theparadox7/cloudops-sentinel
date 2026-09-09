@@ -15,3 +15,12 @@ def create_organization(
 
 def get_organizations(db: Session) -> list[Organization]:
     return db.query(Organization).all()
+def get_organization_by_id(
+    db: Session,
+    organization_id: int,
+) -> Organization | None:
+    return (
+        db.query(Organization)
+        .filter(Organization.id == organization_id)
+        .first()
+    )
