@@ -24,3 +24,23 @@ def get_organization_by_id(
         .filter(Organization.id == organization_id)
         .first()
     )
+    
+def update_organization(
+    db: Session,
+    organization: Organization,
+    name: str,
+) -> Organization:
+    organization.name = name
+
+    db.commit()
+    db.refresh(organization)
+
+    return organization
+
+
+def delete_organization(
+    db: Session,
+    organization: Organization,
+) -> None:
+    db.delete(organization)
+    db.commit()
